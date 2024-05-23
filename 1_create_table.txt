@@ -1,0 +1,72 @@
+CREATE TABLE Customer (
+  cid CHAR(9) NOT NULL,
+  name VARCHAR(20) NOT NULL,
+  address VARCHAR(80) NOT NULL,
+  PRIMARY KEY (cid)
+);
+
+CREATE TABLE Orders (
+  oid CHAR(9) NOT NULL,
+  order_date DATE NOT NULL,
+  cid CHAR(9) NOT NULL,
+  PRIMARY KEY (oid),
+  FOREIGN KEY (cid) REFERENCES Customer(cid)
+);
+
+CREATE TABLE Publisher (
+  pid CHAR(10) NOT NULL,
+  name VARCHAR(30) NOT NULL,
+  address VARCHAR(80) NOT NULL,
+  phone CHAR(10) NOT NULL,
+  PRIMARY KEY (pid)
+);
+
+CREATE TABLE Book (
+  isbn CHAR(10) NOT NULL,
+  title VARCHAR(100) NOT NULL,
+  btype VARCHAR(15) NOT NULL,
+  price DECIMAL(10, 2) NOT NULL,
+  pub_date DATE NOT NULL,
+  pid CHAR(10) NOT NULL,
+  PRIMARY KEY (isbn),
+  FOREIGN KEY (pid) REFERENCES Publisher(pid) 
+);
+
+CREATE TABLE Author (
+  aid CHAR(4) NOT NULL,
+  fname VARCHAR(15) NOT NULL,
+  lname VARCHAR(15) NOT NULL,
+  PRIMARY KEY (aid)
+);
+
+CREATE TABLE Written_by (
+  isbn CHAR(10) NOT NULL,
+  aid CHAR(4) NOT NULL,
+  PRIMARY KEY (isbn, aid),
+  FOREIGN KEY (isbn) REFERENCES Book(isbn),
+  FOREIGN KEY (aid) REFERENCES Author(aid)
+);
+
+CREATE TABLE Editor (
+  eid CHAR(4) NOT NULL,
+  fname VARCHAR(15) NOT NULL,
+  lname VARCHAR(15) NOT NULL,
+  PRIMARY KEY (eid)
+);
+
+CREATE TABLE Edited_by (
+  eid CHAR(4) NOT NULL,
+  isbn CHAR(10) NOT NULL,
+  PRIMARY KEY (eid, isbn),
+  FOREIGN KEY (eid) REFERENCES Editor(eid),
+  FOREIGN KEY (isbn) REFERENCES Book(isbn)
+);
+
+CREATE TABLE Contain_Book (
+  oid CHAR(9) NOT NULL,
+  isbn CHAR(10) NOT NULL,
+  no_of_copy INT NOT NULL,
+  PRIMARY KEY (oid, isbn),
+  FOREIGN KEY (oid) REFERENCES Orders(oid),
+  FOREIGN KEY (isbn) REFERENCES Book(isbn)
+);

@@ -1,0 +1,45 @@
+insert into Publisher
+values("1234","Serenity","California","9876543210")
+;
+
+insert into Publisher
+values("1235","Alaia","Texas", "9876754762")
+;
+
+insert into Customer
+values("24","Noah","Nevada")
+;
+
+insert into Orders
+values("510","2023-10-13","24")
+;
+
+insert into Book
+values("438","title1","novel",50,"2006-05-26","1234")
+;
+
+insert into Contain_Book
+values("510","438","15")
+;
+
+insert into Author
+values("12","Smith","Eli")
+;
+
+insert into Written_by
+values("438","12")
+;
+
+insert into Editor
+values("865","Lorence","Patrick")
+;
+
+insert into Edited_by
+values("865", "438")
+;
+
+delete from Publisher where pid="1235"
+;
+
+update Book set price=price+25 where isbn="438"
+;

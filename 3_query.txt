@@ -1,0 +1,90 @@
+
+SELECT e.eid, e.fname, e.lname
+FROM Editor e
+JOIN Edited_by eb ON e.eid = eb.eid
+WHERE eb.isbn = '8330418998';
+
+SELECT c.name
+FROM Customer c
+JOIN Orders o ON c.cid = o.cid
+JOIN Contain_Book cb ON o.oid = cb.oid
+JOIN Book b ON cb.isbn = b.isbn
+WHERE b.btype = 'novel'
+ORDER BY c.name DESC;
+
+SELECT DISTINCT p.name, p.address
+FROM Publisher p
+JOIN Book b ON p.pid = b.pid
+WHERE b.btype = 'textbook';
+
+SELECT a.aid, a.fname, a.lname, COUNT(*) AS novels_written
+FROM Author a
+JOIN Written_by wb ON a.aid = wb.aid
+JOIN Book b ON wb.isbn = b.isbn
+WHERE b.btype = 'novel'
+GROUP BY a.aid
+HAVING COUNT(*) > 2;
+
+SELECT a.fname, a.lname
+FROM Author a
+JOIN Written_by wb ON a.aid = wb.aid
+JOIN Book b ON wb.isbn = b.isbn
+WHERE b.title = 'Fundamentals of Database Systems';
+
+SELECT b.title, b.btype AS type, b.isbn
+FROM Book b
+JOIN Written_by wb ON b.isbn = wb.isbn
+JOIN Author a ON wb.aid = a.aid
+WHERE a.fname = 'Jeff' AND a.lname = 'Smith';
+
+SELECT p.pid, p.name, p.phone
+FROM Publisher p
+JOIN Book b ON p.pid = b.pid
+WHERE b.btype = 'novel'
+GROUP BY p.pid
+HAVING COUNT(b.isbn) > 2;
+
+SELECT MAX(b.price) AS highest_price
+FROM Book b
+JOIN Written_by wb ON b.isbn = wb.isbn
+JOIN Author a ON wb.aid = a.aid
+WHERE a.fname = 'Jeff' AND a.lname = 'Smith';
+
+SELECT e.eid, COUNT(*) AS books_edited
+FROM Editor e
+JOIN Edited_by eb ON e.eid = eb.eid
+GROUP BY e.eid
+HAVING COUNT(eb.isbn) > 2;
+
+SELECT o.oid, o.order_date
+FROM Orders o
+JOIN Customer c ON o.cid = c.cid
+WHERE c.name = 'Alice Kay';
+
+SELECT DISTINCT b.isbn, b.title, b.price
+FROM Book b
+JOIN Contain_Book cb ON b.isbn = cb.isbn
+JOIN Orders o ON cb.oid = o.oid
+JOIN Customer c ON o.cid = c.cid
+WHERE c.name = 'Alice Kay'
+ORDER BY b.title ASC;
+
+SELECT o.oid, o.order_date
+FROM Orders o
+JOIN Contain_Book cb ON o.oid = cb.oid
+JOIN Book b ON cb.isbn = b.isbn
+WHERE b.title = 'Fundamentals of Database Systems';
+
+SELECT COUNT(*) AS orders_count
+FROM Orders
+WHERE order_date < '2019-08-11';
+
+SELECT c.cid, c.name, COUNT(*) AS orders_made
+FROM Orders o
+JOIN Customer c ON o.cid = c.cid
+GROUP BY c.cid
+HAVING COUNT(*) > 2;
+
+SELECT title, price
+FROM Book
+WHERE price = (SELECT MAX(price) FROM Book);

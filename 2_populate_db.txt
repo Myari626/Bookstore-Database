@@ -1,0 +1,47 @@
+INSERT INTO Customer VALUES 
+('C00000001', 'Alice Kay', '123 Apple St.'),
+('C00000002', 'Bob Smith', '456 Berry Blvd.'),
+('C00000003', 'Carol Jones', '789 Cherry Cir.');
+
+INSERT INTO Orders VALUES 
+('O00000001', '2023-07-10', 'C00000001'),
+('O00000002', '2023-07-11', 'C00000002'),
+('O00000003', '2023-07-12', 'C00000003');
+
+INSERT INTO Publisher VALUES 
+('P000000001', 'Novelty Press', '456 Pear Ave', '1234567890'),
+('P000000002', 'Academic Books Inc', '123 Education Rd', '0987654321'),
+('P000000003', 'Fantasy World Pub', '321 Imagination Ave', '5555555555');
+
+INSERT INTO Book VALUES 
+('8330418998', 'Database Basics', 'textbook', 85.00, '2023-01-01', 'P000000001'),
+('1234567890', 'Fundamentals of Database Systems', 'textbook', 120.00, '2022-05-05', 'P000000001'),
+('0987654321', 'Adventures of a Coder', 'novel', 59.99, '2023-01-15', 'P000000003'),
+('1111111111', 'The Novel Approach', 'novel', 39.99, '2022-06-10', 'P000000003');
+
+INSERT INTO Author VALUES 
+('A001', 'Jeff', 'Smith'),
+('A002', 'Jane', 'Doe'),
+('A003', 'Emily', 'Stone');
+
+INSERT INTO Written_by VALUES 
+('8330418998', 'A001'),
+('1234567890', 'A002'),
+('0987654321', 'A001'),
+('1111111111', 'A003');
+
+INSERT INTO Editor VALUES 
+('E001', 'John', 'Editor'),
+('E002', 'Lisa', 'Writer'),
+('E003', 'Mark', 'Checker');
+
+INSERT INTO Edited_by VALUES 
+('E001', '8330418998'),
+('E002', '1234567890'),
+('E003', '0987654321');
+
+INSERT INTO Contain_Book VALUES 
+('O00000001', '8330418998', 1),
+('O00000002', '1234567890', 2),
+('O00000003', '0987654321', 1),
+('O00000001', '1111111111', 1);
